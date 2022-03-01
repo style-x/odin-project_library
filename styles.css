@@ -11,15 +11,26 @@ html, body {
   background-color: #555;
 }
 
-.container {
+#container {
   padding: 1rem;
   display: grid;
   gap: 1rem;
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: repeat(auto-fit, minmax(6rem, 10rem));
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 16rem));
 }
 
 .book {
   background-color: #CCC;
   padding: 1rem;
+  position: relative;
+}
+
+.erase {
+  display: inline-block;
+  position: absolute;
+  top: 2px;
+  right: 3px;
+}
+
+.erase:hover {
+  cursor: pointer;
 }
