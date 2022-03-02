@@ -21,7 +21,6 @@ let myLibrary = [
 
 let fragment = document.createDocumentFragment();
 const target = document.getElementById('container');
-const eraseBtn = document.getElementsByClassName('erase');
 
 function Book() {
   // the constructor...
@@ -49,8 +48,6 @@ myLibrary.forEach(element => {
 
 target.appendChild(fragment);
 
-eraseBtn.forEach(btn => {
-  btn.addEventListener('click', () => {
-    
-  })
-})
+const eraseBtn = document.getElementsByClassName('erase');
+
+console.log(eraseBtn);
