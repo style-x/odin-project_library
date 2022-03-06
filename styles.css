@@ -31,7 +31,7 @@ button {
   padding: 1rem;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(8rem, 16rem));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 }
 
 .book {
