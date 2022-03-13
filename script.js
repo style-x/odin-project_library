@@ -1,3 +1,6 @@
+document.querySelector('#btn-add').addEventListener('click', addBookToLibrary);
+document.querySelector('#btn-display').addEventListener('click', changeDisplay);
+
 let myLibrary = [
   {
     id: 1,
@@ -33,15 +36,10 @@ let myLibrary = [
 
 const fragment = document.createDocumentFragment();
 const target = document.getElementById('container');
-const add = document.getElementById('btn-add');
 const eraseBtn = document.getElementsByClassName('erase');
 
-function Book() {
+function build() {
   [...target.childNodes].forEach(el => el.remove());
-  /*while (target.firstChild) {
-    target.firstChild.remove()
-    console.log(target.firstChild);
-  } */
   myLibrary.forEach(element => {
     if(element.show) {
       let newNode = document.createElement('div');
@@ -63,7 +61,7 @@ function Book() {
   });
 };
 
-Book();
+build();
 
 Array.from(eraseBtn).forEach(btn => {
   btn.addEventListener('click', event => {
@@ -71,14 +69,32 @@ Array.from(eraseBtn).forEach(btn => {
     const erase = myLibrary.filter(book => book.id == id);
     erase[0].show = false;
     console.log("gelöscht");
-    Book();
+    build();
   })
 });
-
-add.addEventListener('click', event => {
-  addBookToLibrary();
-})
 
 function addBookToLibrary() {
   console.log("Buch hinzufügen..");
 };
+
+function changeDisplay() {
+  let display = document.getElementById("container");
+  display.classList.toggle("displayCards")
+  console.log("Change Display..");
+}
+
+function setData() {
+  localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
+}
+
+function rebuild() {
+  if(localStorage.myLibrary) {
+      let data = localStorage.getItem('myLibrary') 
+      myLibrary = JSON.parse(data);
+      build();
+  }else {
+      build();
+  }
+}
+
+rebuild();
