@@ -1,3 +1,7 @@
+:root {
+  --clr-main: black;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -8,23 +12,26 @@
 html, body {
   width: 100%;
   min-height: 100vh;
-  background-color: #555;
+  background-color: #2B86C5;
+  background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+
 }
 
 nav {
-  height: 4rem;
-  background-color: #CCC;
+  height: 6rem;
   display: flex;
   justify-content: space-between;
 }
 
 button {
-  margin: 0.5rem;
-  padding: 0.5rem;
+  margin: 1rem;
+  padding: 1rem;
   border: 1px solid black;
   border-radius: 0.5rem;
   background-color: #555;
   color: white;
+  font-size: 0.9rem;
+  height: fit-content;
 }
 
 #container {
@@ -32,7 +39,8 @@ button {
 }
 
 .book {
-  background-color: #CCC;
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
   padding: 1rem;
   position: relative;
   margin-bottom: 0.5rem;
@@ -56,4 +64,19 @@ button {
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-auto-rows: 150px;
+}
+
+#modal {
+  margin: auto;
+  padding: 1rem;
+  max-width: 50ch;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+#modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.8);
 }

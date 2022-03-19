@@ -11,11 +11,23 @@
 </head>
 <body>
   <nav>
-    <button id="btn-display">Table/Cards</button>
+    <button id="btn-display">Table / Cards</button>
     <button id="btn-add">ADD</button>
   </nav>
   <div id="container">
     
   </div>
+
+  <dialog id="modal">
+    <h1>Add Book</h1>
+    <form class="form" method="dialog">
+      <label>Author: <input type="text" id="author"></label>
+      <label>Title: <input type="text" id="title"></label>
+      <label>Pages: <input type="number" id="pages"></label>
+      <label for="scales">Read<input type="checkbox" id="isRead" name="scales"></label>
+      <button id="submit" type="submit">ADD</button>
+    </form>
+  </dialog>
+
 </body>
 </html>

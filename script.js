@@ -1,14 +1,20 @@
 'use strict'
 
-document.querySelector('#btn-add').addEventListener('click', addBookToLibrary);
+document.querySelector('#btn-add').addEventListener('click', openModal);
 document.querySelector('#btn-display').addEventListener('click', changeDisplay);
+document.querySelector('#submit').addEventListener('click', submit);
+const modal = document.querySelector('#modal');
+const target = document.getElementById('container');
+const book = document.querySelectorAll('.book');
+const eraseBtn = document.getElementsByClassName('erase');
+const title = document.getElementById('title').value;
+const author = document.getElementById('author').value;
+const pages = document.getElementById('pages').value;
+const isRead = document.getElementById('isRead').checked;
 
 let myLibrary = [];
 
 const fragment = document.createDocumentFragment();
-const target = document.getElementById('container');
-const book = document.querySelectorAll('.book');
-const eraseBtn = document.getElementsByClassName('erase');
 
 function build() {
   while (target.firstChild) {
@@ -33,9 +39,8 @@ function createBook(item) {
   p.addEventListener('click', event => {
     let id = item.id;
     let newLibrary = myLibrary.filter(item => item.id !== id);
-    console.log("gelöscht");
     myLibrary = newLibrary;
-    setData()
+    localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
     build();
   });
   newNode.appendChild(h3);
@@ -45,39 +50,40 @@ function createBook(item) {
   target.appendChild(fragment);
 };
 
-function addBookToLibrary() {
-  console.log("Modal öffnen");
-  
+function openModal() { modal.showModal(); };
+
+function submit(event) { 
+  event.preventDefault();
+  getBookFromInput();
+  modal.close(); 
 };
 
 function changeDisplay() {
-  let display = document.getElementById("container");
-  display.classList.toggle("displayCards");
+  target.classList.toggle("displayCards");
   console.log("Change Display..");
 };
 
-function setData() {
-  localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
-};
-
+// Daten aus localStorage laden
 function rebuild() {
   if(localStorage.myLibrary) {
       let data = localStorage.getItem('myLibrary');
       myLibrary = JSON.parse(data);
       build();
-      console.log("Daten aus LocalStorage geladen..");
-  }else {
-      build();
-      console.log("Keine Daten gefunden..");
   };
 };
 
-const getBookFromInput = () => {
-  const title = document.getElementById('title').value
-  const author = document.getElementById('author').value
-  const pages = document.getElementById('pages').value
-  const isRead = document.getElementById('isRead').checked
-  return new Book(title, author, pages, isRead)
+function getBookFromInput() {
+  var newBook = [{
+    id: 0,
+    title: title,
+    author: author,
+    nbr_of_pages: pages,
+    read_status: (isRead)?true:false,
+    insertion_date: new Date()
+  }];
+  myLibrary.push(newBook);
+  localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
+  build();
 };
 
 rebuild();
