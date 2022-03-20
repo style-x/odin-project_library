@@ -7,10 +7,6 @@ const modal = document.querySelector('#modal');
 const target = document.getElementById('container');
 const book = document.querySelectorAll('.book');
 const eraseBtn = document.getElementsByClassName('erase');
-const title = document.getElementById('title').value;
-const author = document.getElementById('author').value;
-const pages = document.getElementById('pages').value;
-const isRead = document.getElementById('isRead').checked;
 
 let myLibrary = [];
 
@@ -33,24 +29,28 @@ function createBook(item) {
   let h5 = document.createElement('h5');
   h5.appendChild(document.createTextNode(`${item.author} (${item.publishing_date})`));
   let p = document.createElement('p');
+  let read = document.createElement('p');
+  read.appendChild(document.createTextNode((item.read_status)?"gelesen":"nicht gelesen"));
   p.classList.add('erase');
   p.appendChild(document.createTextNode('x'));
   p.setAttribute('data-id', `${item.id}`);
   p.addEventListener('click', event => {
-    let id = item.id;
-    let newLibrary = myLibrary.filter(item => item.id !== id);
-    myLibrary = newLibrary;
+    let index = myLibrary.indexOf(item);
+    myLibrary.splice(index, 1);
     localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
     build();
   });
   newNode.appendChild(h3);
   newNode.appendChild(h5);
+  newNode.appendChild(read);
   newNode.appendChild(p);
   fragment.appendChild(newNode);
   target.appendChild(fragment);
 };
 
-function openModal() { modal.showModal(); };
+function openModal() { 
+  modal.showModal(); 
+};
 
 function submit(event) { 
   event.preventDefault();
@@ -73,14 +73,19 @@ function rebuild() {
 };
 
 function getBookFromInput() {
-  var newBook = [{
-    id: 0,
+  let title = document.getElementById('title').value;
+  let author = document.getElementById('author').value;
+  let pdate = document.getElementById('pdate').value;
+  let pages = document.getElementById('pages').value;
+  let isRead = document.getElementById('isRead').checked;
+  var newBook = {
     title: title,
     author: author,
+    publishing_date: pdate,
     nbr_of_pages: pages,
-    read_status: (isRead)?true:false,
+    read_status: isRead?true:false,
     insertion_date: new Date()
-  }];
+  };
   myLibrary.push(newBook);
   localStorage.setItem(`myLibrary`, JSON.stringify(myLibrary));
   build();
